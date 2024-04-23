@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Processing</title>
+</head>
+<body>
+    <h1>Upload and Process Video</h1>
+
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="video/*">
+        <button type="submit">Upload Video</button>
+    </form>
+
+    <hr>
+
+    <h2>Processed Video</h2>
+    <div id="videoContainer">
+        <!-- Processed video frames will be displayed here -->
+    </div>
+
+    <h1>Video Stream from Frames</h1>
+
+    {% if video_path %}
+        <h2>Processed Video Stream</h2>
+        <img src="{{ url_for('video_feed', video_path=video_path) }}" width="640" height="480" />
+    {% endif %}
+
+</body>
+</html>

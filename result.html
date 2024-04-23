@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Processing Result</title>
+</head>
+<body>
+    <h1>Processed Video</h1>
+    <video id="processedVideo" controls autoplay></video>
+
+    <script>
+        // Fetch video frames from Flask backend
+        fetch('/', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                const frame = data.frame;
+                const videoElement = document.getElementById('processedVideo');
+
+                frame.forEach(frame => {
+                    const img = new Image();
+                    img.src = 'data:image/jpeg;base64,' + frame;
+                    img.onload = () => {
+                        videoElement.src = img.src;
+                    };
+                });
+            })
+            .catch(error => console.error('Error fetching frames:', error));
+    </script>
+</body>
+</html>
